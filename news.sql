@@ -24,11 +24,14 @@ CREATE TABLE replies (
 
 -- -- Members table
 -- -- 需要設計你的會員系統資料表
--- -- //////////////////////////////////////////////////////
--- CREATE TABLE members (
---     id INT AUTO_INCREMENT PRIMARY KEY,
---     username VARCHAR(100) NOT NULL UNIQUE,
---     email VARCHAR(100) NOT NULL UNIQUE,
---     password VARCHAR(255) NOT NULL,
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `membership` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY COMMENT '會員唯一識別碼',
+  `account` VARCHAR(50) NOT NULL UNIQUE COMMENT '帳號(不可重複)',
+  `password` VARCHAR(255) NOT NULL COMMENT '密碼(加密後的雜湊值)',
+  `nickname` VARCHAR(50) NOT NULL COMMENT '暱稱',
+  `favorite_color` VARCHAR(20) DEFAULT NULL COMMENT '喜歡顏色(可存放Hex碼或英文)',
+  `avatar_url` VARCHAR(255) DEFAULT NULL COMMENT '大頭貼檔案路徑或網址',
+  `status` VARCHAR(20) DEFAULT 'active' COMMENT '帳號狀態(active, inactive)',
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '建立時間',
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

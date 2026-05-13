@@ -5,10 +5,7 @@
   $account = $_POST["account"];
   $password = $_POST["password"];
   $name = $_POST["name"];
-  $sex = $_POST["sex"];
-  $cellphone = $_POST["cellphone"];
-  $email = $_POST["email"];
-  $comment = $_POST["comment"];
+
 
   //檢查帳號是否有人申請
   $sql = "SELECT COUNT(*) FROM members2 WHERE account = ?";
