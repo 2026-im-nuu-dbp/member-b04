@@ -22,5 +22,13 @@ CREATE TABLE replies (
     INDEX idx_news_id (news_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Members table
--- 需要設計你的會員系統資料表
+-- -- Members table
+-- -- 需要設計你的會員系統資料表
+-- -- //////////////////////////////////////////////////////
+-- CREATE TABLE members (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     username VARCHAR(100) NOT NULL UNIQUE,
+--     email VARCHAR(100) NOT NULL UNIQUE,
+--     password VARCHAR(255) NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
