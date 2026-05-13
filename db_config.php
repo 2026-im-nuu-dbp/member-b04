@@ -1,23 +1,20 @@
 <?php
-// Database configuration
-
-$host = 'localhost';
+// 資料庫設定
+$host = '127.0.0.1';
 $db = 'test_db';
 $user = 'root';
-$password = 'Oo200715002';
+$pass = 'Oo200715002';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
 
 try {
-    $pdo = new PDO($dsn, $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (PDOException $e) {
-    die('資料庫連線失敗: ' . $e->getMessage());
+    die("資料庫連線失敗: " . $e->getMessage());
 }
-
-function escape($value)
-{
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-}
+?>
