@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>會員註冊</title>
+</head>
+<body>
+
+    <!-- 註冊表單 -->
+    <div id="registerFormBlock">
+        <h2>會員註冊</h2>
+        <form id="regForm">
+            帳號: <input type="text" name="account" required><br>
+            密碼: <input type="password" name="password" required><br>
+            暱稱: <input type="text" name="nickname"><br>
+            顏色: <input type="text" name="favorite_color"><br>
+            <button type="submit">註冊</button>
+        </form>
+    </div>
+
+    <!-- 成功結果顯示區（預設隱藏） -->
+    <div id="successBlock" style="display: none; text-align: center;">
+        <img src="Success.jpg" alt="註冊成功">
+        <p>恭喜您已經註冊成功了，您的資料如下：</p>
+        <p>
+            帳號：<span id="resAccount" style="color:red; font-weight:bold;"></span><br>
+            密碼：<span id="resPassword" style="color:red; font-weight:bold;"></span><br>
+            <a href="login.html">登入網站</a>
+        </p>
+    </div>
+
+    <script>
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // 阻止表單預設的跳頁行為
+
+        // 自動打包表單資料
+        const formData = new FormData(this);
+
+        // 使用 Fetch API 發送 AJAX 請求
+        fetch('register.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                // 隱藏表單，顯示成功區塊
+                document.getElementById('registerFormBlock').style.display = 'none';
+                document.getElementById('successBlock').style.display = 'block';
+
+                // 🔥 核心安全關鍵：使用 textContent 填入內容，阻絕 XSS 攻擊
+                document.getElementById('resAccount').textContent = data.account;
+                document.getElementById('resPassword').textContent = data.password;
+            } else {
+                // 帳號重複或欄位為空時的警示
+                alert(data.message);
+                if (data.status === 'exists') {
+                    // 帳號重複時，可以自動清空帳號欄位讓使用者重填
+                    document.querySelector('input[name="account"]').value = '';
+                }
+            }
+        })
+        .catch(err => {
+            console.error('發生錯誤:', err);
+            alert('系統連線失敗，請稍後再試');
+        });
+    });
+    </script>
+</body>
+</html>
